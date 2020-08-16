@@ -1,5 +1,8 @@
 FROM alpine:3.12
 
+LABEL org.opencontainers.image.url="https://github.com/cholick/debug-docker-image" \
+      org.opencontainers.image.source="https://github.com/cholick/debug-docker-image"
+
 RUN apk --update upgrade && \
     apk add --update ca-certificates && \
     update-ca-certificates && \
