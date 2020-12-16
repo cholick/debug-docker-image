@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug
+spec:
+  containers:
+  - image: cholick/debug
+    command:
+    - "/bin/bash"
+    - -c
+    args:
+      - |
+        echo "starting debug container";
+        echo "sleeping....";
+        sleep 3600
+        echo "sleep complete";
+    imagePullPolicy: Always
+    name: debug
+  restartPolicy: Always
