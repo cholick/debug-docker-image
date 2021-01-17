@@ -4,16 +4,35 @@ metadata:
   name: debug
 spec:
   containers:
-  - image: cholick/debug
-    command:
-    - "/bin/bash"
-    - -c
-    args:
-      - |
-        echo "starting debug container";
-        echo "sleeping....";
-        sleep 3600
-        echo "sleep complete";
-    imagePullPolicy: Always
-    name: debug
+    - image: cholick/debug
+      command:
+        - "/bin/bash"
+        - -c
+      args:
+        - |
+          echo "starting debug container";
+          echo "sleeping....";
+          sleep 3600
+          echo "sleep complete";
+      imagePullPolicy: Always
+      name: debug
+      volumeMounts:
+        - name: podinfo
+          mountPath: /etc/podinfo
   restartPolicy: Always
+  volumes:
+    - name: podinfo
+      downwardAPI:
+        items:
+          - path: "uid"
+            fieldRef:
+              fieldPath: metadata.uid
+          - path: "name"
+            fieldRef:
+              fieldPath: metadata.name
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
